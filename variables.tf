@@ -89,5 +89,6 @@ variable "route_table_name" {
 variable "next_hop_ip" {
   description = "The IP of the next hop (for example: a firewall or other device)"
   type        = string
-  default     = ""
+  default     = ""  # By default, leave this blank, and enforce its value when calling the module.
 }
+

@@ -21,6 +21,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   name                = "${var.aks_name}"
   location            = "${azurerm_resource_group.rg.location}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
+  dns_prefix          = "${var.aks_name}-dns"
 
   default_node_pool {
     name       = "${var.node_pool_name}"
@@ -68,7 +69,7 @@ resource "azurerm_route_table" "rt" {
     name                = "myRoute"
     address_prefix      = "0.0.0.0/0"
     next_hop_type       = "VirtualAppliance"
-    next_hop_in_ip_address = "${var.next_hop_ip}"
+    next_hop_in_ip_address = var.next_hop_ip != "" ? var.next_hop_ip : azurerm_public_ip.nginx_ingress_public_ip.ip_address
   }
 }
 
