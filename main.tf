@@ -91,7 +91,7 @@ resource "azurerm_network_interface" "nic" {
 }
 
 resource "azurerm_public_ip" "vm_public_ip" {
-  name                = "${var.pubip_name}"
+  name                = "${var.pub_ip_name}"
   location            = "${azurerm_resource_group.rg.location}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
   allocation_method   = "Dynamic"  # You can change this to "Static" if needed
@@ -125,5 +125,5 @@ resource "azurerm_linux_virtual_machine" "red-vm" {
   }
 
   computer_name  = "${var.vm_name}"
-  public_ip_address_ids = [azurerm_public_ip.vm_public_ip.id]  # Associate the public IP address with the VM
+  public_ip_address_id = [azurerm_public_ip.vm_public_ip.id]  # Associate the public IP address with the VM
 }
