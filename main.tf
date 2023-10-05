@@ -139,4 +139,3 @@ resource "azurerm_linux_virtual_machine" "red-vm" {
 
   public_ip_address_ids = [azurerm_public_ip.vm_public_ip.id]
 }
-}
