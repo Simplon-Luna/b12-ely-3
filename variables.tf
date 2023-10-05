@@ -92,3 +92,8 @@ variable "next_hop_ip" {
   default     = ""  # By default, leave this blank, and enforce its value when calling the module.
 }
 
+variable "vm_name"{
+  description = "The VM's name"
+  type        = string
+  default     = "ely-vm"
+}
