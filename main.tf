@@ -79,7 +79,7 @@ resource "azurerm_subnet_route_table_association" "subnet_rt_assoc" {
 }
 
 resource "azurerm_network_interface" "nic" {
-  name                = "${var.nic_name}"
+  name                = "ely-nic"
   location            = "${var.location}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
 
