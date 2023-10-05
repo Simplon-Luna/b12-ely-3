@@ -100,7 +100,7 @@ resource "azurerm_linux_virtual_machine" "red-vm" {
   admin_username      = "adminuser"
   admin_ssh_key {
     username   = "adminuser"
-    public_key = file("~/.ssh/ssh.pub")
+    public_key = file("~/git/b13-ely/.ssh/ssh.pub")
   }
 
   os_disk {
