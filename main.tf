@@ -125,5 +125,4 @@ resource "azurerm_linux_virtual_machine" "red-vm" {
   }
 
   computer_name  = "${var.vm_name}"
-  public_ip_address_id = [azurerm_public_ip.vm_public_ip.id]  # Associate the public IP address with the VM
-}
+ }
