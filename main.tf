@@ -78,11 +78,23 @@ resource "azurerm_subnet_route_table_association" "subnet_rt_assoc" {
   route_table_id = "${azurerm_route_table.rt.id}"
 }
 
-resource "azurerm_linux_virtual_machine" "example" {
+resource "azurerm_network_interface" "nic" {
+  name                = "$(var.nic_name)"
+  location            = "${var.location}"
+  resource_group_name = "${azurerm_resource_group.rg.name}"
+
+  ip_configuration {
+    name                          = "internal"
+    subnet_id                     = azurerm_subnet.subnet.id
+    private_ip_address_allocation = "Dynamic"
+  }
+}
+
+resource "azurerm_linux_virtual_machine" "red-vm" {
   name                = "${var.vm_name}"
   location            = "${var.location}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
-  network_interface_ids = [azurerm_network_interface.example.id]
+  network_interface_ids = [azurerm_network_interface.nic.id]
 
   size                = "${var.vm_size}"
   admin_username      = "adminuser"
