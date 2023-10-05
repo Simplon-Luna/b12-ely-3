@@ -78,6 +78,14 @@ resource "azurerm_subnet_route_table_association" "subnet_rt_assoc" {
   route_table_id = "${azurerm_route_table.rt.id}"
 }
 
+resource "azurerm_public_ip" "vm_public_ip" {
+  name                = "${var.pub_ip_name}"
+  location            = "${azurerm_resource_group.rg.location}"
+  resource_group_name = "${azurerm_resource_group.rg.name}"
+  allocation_method   = "Dynamic"  # You can change this to "Static" if needed
+  sku                 = "Standard"
+}
+
 resource "azurerm_network_interface" "nic" {
   name                = "ely-nic"
   location            = "${var.location}"
@@ -87,17 +95,9 @@ resource "azurerm_network_interface" "nic" {
     name                          = "internal"
     subnet_id                     = azurerm_subnet.subnet.id
     private_ip_address_allocation = "Dynamic"
+    public_ip_address_id = "${azurerm_public_ip.vm_public_ip.id}"
   }
 }
-
-resource "azurerm_public_ip" "vm_public_ip" {
-  name                = "${var.pub_ip_name}"
-  location            = "${azurerm_resource_group.rg.location}"
-  resource_group_name = "${azurerm_resource_group.rg.name}"
-  allocation_method   = "Dynamic"  # You can change this to "Static" if needed
-  sku                 = "Standard"
-}
-
 
 resource "azurerm_linux_virtual_machine" "red-vm" {
   name                = "${var.vm_name}"
