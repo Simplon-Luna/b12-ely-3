@@ -95,11 +95,9 @@ variable "next_hop_ip" {
 variable "nic_name" {
   description = "Name of the NIC"
   type =   string
-  default = "ely-vm-nic"
 }
 
 variable "vm_name"{
   description = "The VM's name"
   type        = string
-  default     = "ely-vm"
 }
