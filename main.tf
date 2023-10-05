@@ -90,6 +90,15 @@ resource "azurerm_network_interface" "nic" {
   }
 }
 
+resource "azurerm_public_ip" "vm_public_ip" {
+  name                = "${var.pub_ip_name}"
+  location            = "${azurerm_resource_group.rg.location}"
+  resource_group_name = "${azurerm_resource_group.rg.name}"
+  allocation_method   = "Dynamic"  # You can change this to "Static" if needed
+  sku                 = "Standard"
+}
+
+
 resource "azurerm_linux_virtual_machine" "red-vm" {
   name                = "${var.vm_name}"
   location            = "${var.location}"
@@ -115,5 +124,19 @@ resource "azurerm_linux_virtual_machine" "red-vm" {
     version   = "latest"
   }
 
-  computer_name  = "${var.vm_name}"
+  os_profile {
+    computer_name  = "${var.vm_name}"
+    admin_username = "adminuser"
+  }
+
+  os_profile_linux_config {
+    disable_password_authentication = true
+  }
+
+  boot_diagnostics {
+    enabled = true
+  }
+
+  public_ip_address_ids = [azurerm_public_ip.vm_public_ip.id]
+}
 }

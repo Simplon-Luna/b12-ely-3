@@ -92,6 +92,11 @@ variable "next_hop_ip" {
   default     = ""  # By default, leave this blank, and enforce its value when calling the module.
 }
 
+variable "pub_ip_name" {
+  description = "Name of the Public IP for VM"
+  type = string
+}
+
 variable "vm_name"{
   description = "The VM's name"
   type        = string
