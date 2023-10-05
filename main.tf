@@ -82,7 +82,7 @@ resource "azurerm_public_ip" "vm_public_ip" {
   name                = "${var.pub_ip_name}"
   location            = "${azurerm_resource_group.rg.location}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
-  allocation_method   = "Dynamic"  # You can change this to "Static" if needed
+  allocation_method   = "Static"  # You can change this to "Static" if needed
   sku                 = "Standard"
 }
 
